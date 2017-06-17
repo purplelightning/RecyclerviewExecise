@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -17,7 +20,7 @@ import java.util.List;
 public class RanimationActivity extends AppCompatActivity {
 
     private Fruit apple, banana, grape, orange, pineapple, watermelon, pear, cherry, mango,
-            strawberry,cherry1;
+            strawberry, cherry1;
 
     //数组初始化！
     private List<Fruit> fruitList = new ArrayList<>();
@@ -44,15 +47,15 @@ public class RanimationActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
-        //下拉列表设置recyclerview动画效果
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        //下拉列表1设置recyclerview布局
+        Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
 
 
         //增加,减少item监听器
         findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAdapter.add(cherry1,2);
+                mAdapter.add(cherry1, 2);
             }
         });
 
@@ -64,6 +67,33 @@ public class RanimationActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.act_list:
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                break;
+            case R.id.act_grid:
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                break;
+            case R.id.act_hgrid:
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager
+                        (3, StaggeredGridLayoutManager.HORIZONTAL));
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initData() {
@@ -78,7 +108,7 @@ public class RanimationActivity extends AppCompatActivity {
         strawberry = new Fruit("strawberry", R.drawable.strawberry_pic);
         watermelon = new Fruit("watermelon", R.drawable.watermelon_pic);
 
-        cherry1=new Fruit("New Item",R.drawable.cherry_pic);
+        cherry1 = new Fruit("New Item", R.drawable.cherry_pic);
 
         for (int i = 0; i < 3; i++) {
             fruitList.add(apple);
