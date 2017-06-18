@@ -100,10 +100,12 @@ public class RanimationActivity extends AppCompatActivity {
         recyclerView.addOnScrollListener(new EndLessOnScrollListener(mGridLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
+                mAdapter.changeMoreStatus(RefreshFootAdapter.LOADING_MORE);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         loadMoreData();
+                        mAdapter.changeMoreStatus(RefreshFootAdapter.PULLUP_LOAD_MORE);
                     }
                 }, 2500);
 

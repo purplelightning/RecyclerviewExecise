@@ -36,12 +36,14 @@ public class RefreshFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         View fruitView;
         ImageView fruitImage;
         TextView fruitName;
+        TextView footText;
 
         public ItemViewHolder(View view) {
             super(view);
             fruitView = view;
             fruitImage = (ImageView) view.findViewById(R.id.img);
             fruitName = (TextView) view.findViewById(R.id.text);
+            footText = (TextView) view.findViewById(R.id.foot_text);
         }
     }
 
