@@ -31,6 +31,8 @@ public class RanimationActivity extends AppCompatActivity {
     private FruitAdapter mAdapter;
     private RecyclerView recyclerView;
 
+    private int itemCount=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,10 +107,10 @@ public class RanimationActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.act_list:
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setLayoutManager(mLinearLayoutManager);
                 break;
             case R.id.act_grid:
-                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
                 break;
             case R.id.act_hgrid:
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager
@@ -123,8 +125,10 @@ public class RanimationActivity extends AppCompatActivity {
 
     //每次上拉加载的时候，就加载十条数据到RecyclerView中
     private void loadMoreData(){
-        for(int i=0;i<5;i++){
-            fruitList.add(grape1);
+        itemCount=0;
+        for(int i=0;i<3;i++){
+            fruitList.add(new Fruit("上拉的葡萄"+itemCount,R.drawable.grape_pic));
+            itemCount++;
             mAdapter.notifyDataSetChanged();
 
         }
@@ -145,7 +149,6 @@ public class RanimationActivity extends AppCompatActivity {
 
         cherry1 = new Fruit("New Item", R.drawable.cherry_pic);
         mango1=new Fruit("下拉的芒果",R.drawable.mango_pic);
-        grape1=new Fruit("上拉的葡萄",R.drawable.grape_pic);
 
 
         for (int i = 0; i < 1; i++) {
@@ -155,10 +158,10 @@ public class RanimationActivity extends AppCompatActivity {
             fruitList.add(grape);
             fruitList.add(mango);
             fruitList.add(orange);
-            fruitList.add(pear);
-            fruitList.add(pineapple);
-            fruitList.add(strawberry);
-            fruitList.add(watermelon);
+//            fruitList.add(pear);
+//            fruitList.add(pineapple);
+//            fruitList.add(strawberry);
+//            fruitList.add(watermelon);
         }
     }
 
