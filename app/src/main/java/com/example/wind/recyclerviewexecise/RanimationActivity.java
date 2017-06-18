@@ -1,6 +1,7 @@
 package com.example.wind.recyclerviewexecise;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,17 +22,19 @@ import java.util.List;
 public class RanimationActivity extends AppCompatActivity {
 
     private Fruit apple, banana, grape, orange, pineapple, watermelon, pear, cherry, mango,
-            strawberry, cherry1,mango1,grape1;
+            strawberry, cherry1, mango1, grape1;
 
     private SwipeRefreshLayout mRefreshLayout;
     private LinearLayoutManager mLinearLayoutManager;
+    private GridLayoutManager mGridLayoutManager;
 
     //数组初始化！
     private List<Fruit> fruitList = new ArrayList<>();
-    private FruitAdapter mAdapter;
     private RecyclerView recyclerView;
+//    private FruitAdapter mAdapter;
+    private RefreshFootAdapter mAdapter;
 
-    private int itemCount=0;
+    private int itemCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +47,21 @@ public class RanimationActivity extends AppCompatActivity {
         //原来的工具栏不显示
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mRefreshLayout=(SwipeRefreshLayout) findViewById(R.id.layout_swiperefresh);
+        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.layout_swiperefresh);
 
         recyclerView = (RecyclerView) findViewById(R.id.rec_list);
         initData();
 
-        mAdapter = new FruitAdapter(fruitList);
+//        mAdapter = new FruitAdapter(fruitList);
+//        recyclerView.setAdapter(mAdapter);
+        //设置自定义Adapter
+        mAdapter=new RefreshFootAdapter(fruitList,this);
         recyclerView.setAdapter(mAdapter);
 
-        mLinearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLinearLayoutManager);
+//        mLinearLayoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(mLinearLayoutManager);
+        mGridLayoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(mGridLayoutManager);
 
         //下拉列表1设置recyclerview布局
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
@@ -87,13 +95,31 @@ public class RanimationActivity extends AppCompatActivity {
         /**上拉监听
          * 监听addOnScrollListener这个方法，新建EndLessOnScrollListener
          * 在onLoadMore方法中去完成上拉加载的操作
+         * 加载延迟,体现加载过程
          * */
-        recyclerView.addOnScrollListener(new EndLessOnScrollListener(mLinearLayoutManager){
+        recyclerView.addOnScrollListener(new EndLessOnScrollListener(mGridLayoutManager) {
             @Override
-            public void onLoadMore(int currentPage){
-                loadMoreData();
+            public void onLoadMore(int currentPage) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadMoreData();
+                    }
+                }, 2500);
+
             }
         });
+    }
+
+    //每次上拉加载的时候，就加载3条数据到RecyclerView中
+    private void loadMoreData() {
+        //itemCount=0;
+        for (int i = 0; i < 3; i++) {
+            fruitList.add(new Fruit("上拉的葡萄" + itemCount, R.drawable.grape_pic));
+            itemCount++;
+            mAdapter.notifyDataSetChanged();
+
+        }
     }
 
     @Override
@@ -107,10 +133,10 @@ public class RanimationActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.act_list:
-                recyclerView.setLayoutManager(mLinearLayoutManager);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 break;
             case R.id.act_grid:
-                recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+                recyclerView.setLayoutManager(mGridLayoutManager);
                 break;
             case R.id.act_hgrid:
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager
@@ -121,17 +147,6 @@ public class RanimationActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    //每次上拉加载的时候，就加载十条数据到RecyclerView中
-    private void loadMoreData(){
-        itemCount=0;
-        for(int i=0;i<3;i++){
-            fruitList.add(new Fruit("上拉的葡萄"+itemCount,R.drawable.grape_pic));
-            itemCount++;
-            mAdapter.notifyDataSetChanged();
-
-        }
     }
 
     //初始化数据
@@ -148,8 +163,7 @@ public class RanimationActivity extends AppCompatActivity {
         watermelon = new Fruit("watermelon", R.drawable.watermelon_pic);
 
         cherry1 = new Fruit("New Item", R.drawable.cherry_pic);
-        mango1=new Fruit("下拉的芒果",R.drawable.mango_pic);
-
+        mango1 = new Fruit("下拉的芒果", R.drawable.mango_pic);
 
         for (int i = 0; i < 1; i++) {
             fruitList.add(apple);
@@ -158,10 +172,10 @@ public class RanimationActivity extends AppCompatActivity {
             fruitList.add(grape);
             fruitList.add(mango);
             fruitList.add(orange);
-//            fruitList.add(pear);
-//            fruitList.add(pineapple);
-//            fruitList.add(strawberry);
-//            fruitList.add(watermelon);
+            fruitList.add(pear);
+            fruitList.add(pineapple);
+            fruitList.add(strawberry);
+            fruitList.add(watermelon);
         }
     }
 

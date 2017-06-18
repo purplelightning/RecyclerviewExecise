@@ -1,5 +1,6 @@
 package com.example.wind.recyclerviewexecise;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.util.Log;
 public abstract class EndLessOnScrollListener extends RecyclerView.OnScrollListener {
     //声明一个LinearLayoutManager
     private LinearLayoutManager mLinearLayoutManager;
+    private GridLayoutManager mGridLayoutManager;
 
     private int currentPage = 0;
 
@@ -29,21 +31,27 @@ public abstract class EndLessOnScrollListener extends RecyclerView.OnScrollListe
     //是否正在上拉数据
     private boolean loading = true;
 
-    public EndLessOnScrollListener(LinearLayoutManager linearLayoutManager) {
-        this.mLinearLayoutManager = linearLayoutManager;
+//    public EndLessOnScrollListener(LinearLayoutManager linearLayoutManager) {
+//        this.mLinearLayoutManager = linearLayoutManager;
+//    }
+    //使用GridLayoutManager代替
+    public EndLessOnScrollListener(GridLayoutManager gridLayoutManager){
+        this.mGridLayoutManager=gridLayoutManager;
     }
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         visibleItemCount = recyclerView.getChildCount();
-        totalItemCount = mLinearLayoutManager.getItemCount();
-        firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+//        totalItemCount = mLinearLayoutManager.getItemCount();
+//        firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+        totalItemCount=mGridLayoutManager.getItemCount();
+        firstVisibleItem=mGridLayoutManager.findFirstVisibleItemPosition();
 
         if (loading) {
 
             Log.d("aaa", "firstVisibleItem: " + firstVisibleItem);
-            Log.d("aaa", "totalPageCount:" + totalItemCount);
+            Log.d("aaa", "totalItemCount:" + totalItemCount);
             Log.d("aaa", "visibleItemCount:" + visibleItemCount);
 
             if (totalItemCount > previousTotal) {
@@ -53,7 +61,7 @@ public abstract class EndLessOnScrollListener extends RecyclerView.OnScrollListe
             }
         }
 
-        //加载过程结束时,需要可见的item数量大于等于加载出的item数量,加载下一页
+        //加载过程结束时,总的item数量减去当前页面显示的数量小于等于当前显示的第一个item的位置
         if (!loading && totalItemCount - visibleItemCount <= firstVisibleItem) {
             currentPage++;
             onLoadMore(currentPage);
