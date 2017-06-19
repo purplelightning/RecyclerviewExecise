@@ -31,22 +31,22 @@ public abstract class EndLessOnScrollListener extends RecyclerView.OnScrollListe
     //是否正在上拉数据
     private boolean loading = true;
 
-//    public EndLessOnScrollListener(LinearLayoutManager linearLayoutManager) {
-//        this.mLinearLayoutManager = linearLayoutManager;
-//    }
-    //使用GridLayoutManager代替
-    public EndLessOnScrollListener(GridLayoutManager gridLayoutManager){
-        this.mGridLayoutManager=gridLayoutManager;
+    public EndLessOnScrollListener(LinearLayoutManager linearLayoutManager) {
+        this.mLinearLayoutManager = linearLayoutManager;
     }
+    //使用GridLayoutManager代替
+//    public EndLessOnScrollListener(GridLayoutManager gridLayoutManager){
+//        this.mGridLayoutManager=gridLayoutManager;
+//    }
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         visibleItemCount = recyclerView.getChildCount();
-//        totalItemCount = mLinearLayoutManager.getItemCount();
-//        firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-        totalItemCount=mGridLayoutManager.getItemCount();
-        firstVisibleItem=mGridLayoutManager.findFirstVisibleItemPosition();
+        totalItemCount = mLinearLayoutManager.getItemCount();
+        firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+//        totalItemCount=mGridLayoutManager.getItemCount();
+//        firstVisibleItem=mGridLayoutManager.findFirstVisibleItemPosition();
 
         if (loading) {
 

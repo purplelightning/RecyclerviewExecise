@@ -9,6 +9,7 @@
         android:orientation="horizontal"
         android:gravity="center">
         <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="25dp"
             android:layout_height="25dp"
             />

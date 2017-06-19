@@ -19,6 +19,8 @@ public class RefreshFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public static final int PULLUP_LOAD_MORE = 0;
     //正在加载中
     public static final int LOADING_MORE = 1;
+
+    public static final int NO_MORE_DATA=2;
     //上拉加载更多状态-默认为0
     private int load_more_status = 0;
     private LayoutInflater mInflater;
@@ -113,6 +115,9 @@ public class RefreshFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     break;
                 case LOADING_MORE:
                     footViewHolder.footText.setText("正在加载更多数据...");
+                    break;
+                case NO_MORE_DATA:
+                    footViewHolder.footText.setText("没有更多数据了");
                     break;
 
                 default:

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class RanimationActivity extends AppCompatActivity {
     private SwipeRefreshLayout mRefreshLayout;
     private LinearLayoutManager mLinearLayoutManager;
     private GridLayoutManager mGridLayoutManager;
+    private ProgressBar mProgressbar;
 
     //数组初始化！
     private List<Fruit> fruitList = new ArrayList<>();
@@ -40,6 +42,8 @@ public class RanimationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ranimation_layout);
+
+        mProgressbar=(ProgressBar) findViewById(R.id.progressBar);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         //这个只能在AppCompatActivity中使用
@@ -58,10 +62,10 @@ public class RanimationActivity extends AppCompatActivity {
         mAdapter=new RefreshFootAdapter(fruitList,this);
         recyclerView.setAdapter(mAdapter);
 
-//        mLinearLayoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(mLinearLayoutManager);
-        mGridLayoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(mGridLayoutManager);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLinearLayoutManager);
+//        mGridLayoutManager = new GridLayoutManager(this, 2);
+//        recyclerView.setLayoutManager(mGridLayoutManager);
 
         //下拉列表1设置recyclerview布局
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
@@ -97,17 +101,27 @@ public class RanimationActivity extends AppCompatActivity {
          * 在onLoadMore方法中去完成上拉加载的操作
          * 加载延迟,体现加载过程
          * */
-        recyclerView.addOnScrollListener(new EndLessOnScrollListener(mGridLayoutManager) {
+        recyclerView.addOnScrollListener(new EndLessOnScrollListener(mLinearLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
-                mAdapter.changeMoreStatus(RefreshFootAdapter.LOADING_MORE);
+                if(itemCount>=20){
+                    mAdapter.changeMoreStatus(RefreshFootAdapter.NO_MORE_DATA);
+//                    mProgressbar.setVisibility(View.INVISIBLE);
+                    return;
+                }
+                mAdapter.changeMoreStatus(RefreshFootAdapter.PULLUP_LOAD_MORE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.changeMoreStatus(RefreshFootAdapter.LOADING_MORE);
+                    }
+                }, 1000);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         loadMoreData();
-                        mAdapter.changeMoreStatus(RefreshFootAdapter.PULLUP_LOAD_MORE);
                     }
-                }, 2500);
+                }, 1500);
 
             }
         });
@@ -116,7 +130,7 @@ public class RanimationActivity extends AppCompatActivity {
     //每次上拉加载的时候，就加载3条数据到RecyclerView中
     private void loadMoreData() {
         //itemCount=0;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             fruitList.add(new Fruit("上拉的葡萄" + itemCount, R.drawable.grape_pic));
             itemCount++;
             mAdapter.notifyDataSetChanged();
@@ -135,10 +149,10 @@ public class RanimationActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.act_list:
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setLayoutManager(mLinearLayoutManager);
                 break;
             case R.id.act_grid:
-                recyclerView.setLayoutManager(mGridLayoutManager);
+                recyclerView.setLayoutManager(new GridLayoutManager(this,2));
                 break;
             case R.id.act_hgrid:
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager
@@ -180,6 +194,5 @@ public class RanimationActivity extends AppCompatActivity {
             fruitList.add(watermelon);
         }
     }
-
 
 }
