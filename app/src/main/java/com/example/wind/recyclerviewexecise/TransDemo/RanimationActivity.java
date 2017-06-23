@@ -1,6 +1,5 @@
-package com.example.wind.recyclerviewexecise;
+package com.example.wind.recyclerviewexecise.TransDemo;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import com.example.wind.recyclerviewexecise.R;
 
 import java.util.ArrayList;
 import java.util.List;

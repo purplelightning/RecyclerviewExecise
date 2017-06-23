@@ -1,4 +1,4 @@
-package com.example.wind.recyclerviewexecise;
+package com.example.wind.recyclerviewexecise.TransDemo;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.wind.recyclerviewexecise.R;
 
 import java.util.List;
 
@@ -79,13 +81,13 @@ public class RefreshFootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //进行判断显示类型，来创建返回不同的View
         if (viewType == TYPE_ITEM) {
-            View view = mInflater.inflate(R.layout.item_layout, parent, false);
+            View view = mInflater.inflate(R.layout.item_trans_layout, parent, false);
             //这边可以做一些属性设置，甚至事件监听绑定
             //view.setBackgroundColor(Color.RED);
             ItemViewHolder itemViewHolder = new ItemViewHolder(view);
             return itemViewHolder;
         } else if (viewType == TYPE_FOOTER) {
-            View foot_view = mInflater.inflate(R.layout.item_more_layout, parent, false);
+            View foot_view = mInflater.inflate(R.layout.item_trans_more_layout, parent, false);
             //这边可以做一些属性设置，甚至事件监听绑定
             //view.setBackgroundColor(Color.RED);
             FootViewHolder footViewHolder = new FootViewHolder(foot_view);

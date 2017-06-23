@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.wind.recyclerviewexecise.GalleryDemo.GalleryActivity;
+import com.example.wind.recyclerviewexecise.TransDemo.RanimationActivity;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn1;
+    private Button btn1,btn2;
 
 
     @Override
@@ -22,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent1=new Intent(MainActivity.this,RanimationActivity.class);
                 startActivity(intent1);
+            }
+        });
+
+        btn2 = (Button) findViewById(R.id.to_gallery);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2=new Intent(MainActivity.this,GalleryActivity.class);
+                startActivity(intent2);
             }
         });
     }

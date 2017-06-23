@@ -1,4 +1,4 @@
-package com.example.wind.recyclerviewexecise;
+package com.example.wind.recyclerviewexecise.TransDemo;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.wind.recyclerviewexecise.R;
 
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.FruitViewHol
 
     @Override
     public FruitViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_trans_layout, parent, false);
         return new FruitViewHolder(view);
     }
 

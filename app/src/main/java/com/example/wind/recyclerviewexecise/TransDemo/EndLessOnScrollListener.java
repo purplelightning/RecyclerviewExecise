@@ -1,4 +1,4 @@
-package com.example.wind.recyclerviewexecise;
+package com.example.wind.recyclerviewexecise.TransDemo;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

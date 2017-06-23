@@ -11,6 +11,12 @@
         android:id="@+id/to_rani"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="跳转"/>
+        android:text="RecyclerView　变换"/>
+
+    <Button
+        android:id="@+id/to_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RecyclerView Gallery"/>
 
 </LinearLayout>

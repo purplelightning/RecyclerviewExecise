@@ -1,4 +1,4 @@
-package com.example.wind.recyclerviewexecise;
+package com.example.wind.recyclerviewexecise.TransDemo;
 
 /**
  * Created by wind on 17-6-17.
