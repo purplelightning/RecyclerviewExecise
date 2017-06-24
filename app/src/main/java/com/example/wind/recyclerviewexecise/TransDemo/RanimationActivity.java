@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import com.example.wind.recyclerviewexecise.DividerItemDecoration;
 import com.example.wind.recyclerviewexecise.R;
 
 import java.util.ArrayList;
@@ -66,6 +67,11 @@ public class RanimationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLinearLayoutManager);
 //        mGridLayoutManager = new GridLayoutManager(this, 2);
 //        recyclerView.setLayoutManager(mGridLayoutManager);
+
+        //设置RecyclerView的Item间分隔线
+        recyclerView.addItemDecoration(new DividerItemDecoration
+                (this,DividerItemDecoration.VERTICAL_LIST));
+
 
         //下拉列表1设置recyclerview布局
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
