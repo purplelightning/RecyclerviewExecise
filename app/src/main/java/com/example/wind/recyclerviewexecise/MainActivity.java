@@ -7,11 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.wind.recyclerviewexecise.GalleryDemo.GalleryActivity;
+import com.example.wind.recyclerviewexecise.LayoutDemo.ComplexLayoutActivity;
 import com.example.wind.recyclerviewexecise.TransDemo.RanimationActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn1,btn2;
+    private Button btn1,btn2,btn3;
 
 
     @Override
@@ -34,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent2=new Intent(MainActivity.this,GalleryActivity.class);
                 startActivity(intent2);
+            }
+        });
+
+        btn3=(Button)findViewById(R.id.to_complex);
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3=new Intent(MainActivity.this, ComplexLayoutActivity.class);
+                startActivity(intent3);
             }
         });
     }

@@ -52,7 +52,8 @@ public class ApictureAdapter extends MyRecyclerView.Adapter<ApictureAdapter.AHol
 
     @Override
     public AHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gallery_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gallery_layout,
+                parent, false);
         AHolder aholder = new AHolder(view);
         //这句之前写错了,把大图的id传了过来,所以一直报错,并没有什么用
         //aholder.picImg = (ImageView) view.findViewById(R.id.img);

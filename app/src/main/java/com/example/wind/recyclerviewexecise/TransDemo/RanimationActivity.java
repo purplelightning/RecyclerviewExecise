@@ -158,7 +158,7 @@ public class RanimationActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(mLinearLayoutManager);
                 break;
             case R.id.act_grid:
-                recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+                recyclerView.setLayoutManager(new GridLayoutManager(this,3));
                 break;
             case R.id.act_hgrid:
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager

@@ -4,7 +4,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="10dp"
+    android:layout_margin="5dp"
+    android:background="#66ffff00">
 
     <ImageView
         android:id="@+id/img"

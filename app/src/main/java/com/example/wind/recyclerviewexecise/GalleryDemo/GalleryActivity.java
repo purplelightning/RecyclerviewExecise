@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.wind.recyclerviewexecise.DividerItemDecoration;
 import com.example.wind.recyclerviewexecise.GalleryDemo.Apicture;
 import com.example.wind.recyclerviewexecise.GalleryDemo.ApictureAdapter;
 import com.example.wind.recyclerviewexecise.GalleryDemo.MyRecyclerView;
@@ -39,6 +40,11 @@ public class GalleryActivity extends Activity {
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
+
+        //设置RecyclerView的Item间分隔线
+        recyclerView.addItemDecoration(new DividerItemDecoration
+                (this,DividerItemDecoration.HORIZONTAL_LIST));
+
         //设置监听器,滚动和点击都会把上面的大图设置为第一个view或者点击的item
         mAdapter.setOnItemClickListener(new ApictureAdapter.OnItemClickListener() {
             @Override
